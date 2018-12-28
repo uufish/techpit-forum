@@ -3,7 +3,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
-import { timeLag } from '../helpers/timeLag'
+import { toDateText } from '../helpers/toDateText'
 
 const useStyles = makeStyles({
   root: { display: 'grid', gridRowGap: 8 + 'px' },
@@ -27,7 +27,7 @@ const CardResponse = ({ response }) => {
           <Typography>
             <span>{response.username || 'null'}</span>
             <span>{'・'}</span>
-            <span>{timeLag(response.updatedAt.toDate())}</span>
+            <span>{toDateText(response.updatedAt.toDate())}</span>
           </Typography>
         </div>
         <Typography className={classes.text}>{response.text}</Typography>

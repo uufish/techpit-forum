@@ -10,24 +10,24 @@ const useStyle = makeStyles({
 })
 
 const FormThread = () => {
-  const classes = useStyle()
-  const [input, setInput] = useState({ username: '', text: '', title: '' })
   const [inProgress, setInProgress] = useState(false)
-  const onChangeUsername = event => {
-    setInput({ ...input, username: event.target.value })
-  }
-  const onChangeText = event => {
-    setInput({ ...input, text: event.target.value })
-  }
-  const onChangeTitle = event => {
-    setInput({ ...input, title: event.target.value })
-  }
+
+  const [text, setText] = useState('')
+
+  const [title, setTitle] = useState('')
+
+  const [username, setUsername] = useState('')
+
+  const classes = useStyle()
+
   const onSubmit = () => {
-    if (inProgress || !input.text || !input.title) return
+    if (inProgress || !text || !title) return
     setInProgress(true)
-    createThread(input)
+    createThread({ username, text, title })
       .then(() => {
-        setInput({ username: '', text: '', title: '' })
+        setUsername('')
+        setText('')
+        setTitle('')
         setInProgress(false)
       })
       .catch(err => {
@@ -35,39 +35,36 @@ const FormThread = () => {
         console.error(err)
       })
   }
-  const onSubmitForm = event => {
-    event.preventDefault()
-  }
 
   return (
-    <form className={classes.form} onSubmit={onSubmitForm}>
+    <form className={classes.form} onSubmit={event => event.preventDefault()}>
       <TextField
         disabled={inProgress}
-        onChange={onChangeTitle}
+        onChange={event => setTitle(event.target.value)}
         placeholder={'New thread'}
-        value={input.title}
+        value={title}
         variant={'outlined'}
         fullWidth
       />
-      {input.title && (
+      {title && (
         <TextField
           disabled={inProgress}
-          onChange={onChangeText}
+          onChange={event => setText(event.target.value)}
           placeholder={'Content'}
           rows={2}
           rowsMax={8}
-          value={input.text}
+          value={text}
           variant={'outlined'}
           fullWidth
           multiline
         />
       )}
-      {input.title && (
+      {title && (
         <TextField
           disabled={inProgress}
-          onChange={onChangeUsername}
+          onChange={event => setUsername(event.target.value)}
           placeholder={'Username (optional)'}
-          value={input.username}
+          value={username}
           variant={'outlined'}
           fullWidth
         />
@@ -75,7 +72,7 @@ const FormThread = () => {
       <div className={classes.actions}>
         <Button
           color={'primary'}
-          disabled={inProgress || !input.title || !input.text}
+          disabled={inProgress || !title || !text}
           onClick={onSubmit}
           variant={'contained'}
         >

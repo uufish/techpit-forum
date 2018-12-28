@@ -10,21 +10,21 @@ const useStyle = makeStyles({
 })
 
 const FormResponse = ({ threadId }) => {
-  const classes = useStyle()
-  const [input, setInput] = useState({ username: '', text: '' })
   const [inProgress, setInProgress] = useState(false)
-  const onChangeUsername = event => {
-    setInput({ ...input, username: event.target.value })
-  }
-  const onChangeText = event => {
-    setInput({ ...input, text: event.target.value })
-  }
+
+  const [text, setText] = useState('')
+
+  const [username, setUsername] = useState('')
+
+  const classes = useStyle()
+
   const onSubmit = () => {
-    if (inProgress || !input.text) return
+    if (inProgress || !text) return
     setInProgress(true)
-    createResponse({ ...input, threadId })
+    createResponse({ text, threadId, username })
       .then(() => {
-        setInput({ username: '', text: '' })
+        setText('')
+        setUsername('')
         setInProgress(false)
       })
       .catch(err => {
@@ -32,29 +32,26 @@ const FormResponse = ({ threadId }) => {
         console.error(err)
       })
   }
-  const onSubmitForm = event => {
-    event.preventDefault()
-  }
 
   return (
-    <form className={classes.form} onSubmit={onSubmitForm}>
+    <form className={classes.form} onSubmit={event => event.preventDefault()}>
       <TextField
         disabled={inProgress}
-        onChange={onChangeText}
+        onChange={event => setText(event.target.value)}
         placeholder={'New response'}
         rows={2}
         rowsMax={8}
-        value={input.text}
+        value={text}
         variant={'outlined'}
         fullWidth
         multiline
       />
-      {input.text && (
+      {text && (
         <TextField
           disabled={inProgress}
-          onChange={onChangeUsername}
+          onChange={event => setUsername(event.target.value)}
           placeholder={'Username (Optional)'}
-          value={input.username}
+          value={username}
           variant={'outlined'}
           fullWidth
         />
@@ -62,7 +59,7 @@ const FormResponse = ({ threadId }) => {
       <div className={classes.actions}>
         <Button
           color={'primary'}
-          disabled={inProgress || !input.text}
+          disabled={inProgress || !text}
           onClick={onSubmit}
           variant={'contained'}
         >

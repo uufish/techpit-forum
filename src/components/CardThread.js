@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { timeLag } from '../helpers/timeLag'
+import { toDateText } from '../helpers/toDateText'
 
 const useStyles = makeStyles({
   content: { display: 'grid', gridRowGap: 8 + 'px' },
@@ -22,7 +22,7 @@ const CardThread = ({ thread }) => {
             <span>{thread.title}</span>
             <span>{String(thread.responseCount)}</span>
           </Typography>
-          <Typography>{timeLag(thread.updatedAt.toDate())}</Typography>
+          <Typography>{toDateText(thread.updatedAt.toDate())}</Typography>
         </CardContent>
       </Link>
     </Card>

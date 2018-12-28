@@ -1,4 +1,4 @@
-export const timeLag = date => {
+export const toDateText = date => {
   const now = new Date().getTime()
   const df = Math.abs(now - date)
   const dm = df / 1000 / 60
