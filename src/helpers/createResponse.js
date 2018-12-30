@@ -3,7 +3,7 @@ import { firestore } from 'firebase/app'
 export const createResponse = async input => {
   const now = firestore.Timestamp.now()
 
-  const systemFields = { createdAt: now, updatedAt: now }
+  const system = { createdAt: now, updatedAt: now }
 
   const threadRef = firestore()
     .collection('threads')
@@ -28,7 +28,7 @@ export const createResponse = async input => {
     })
 
     t.set(threadResponseRef, {
-      ...systemFields,
+      ...system,
       threadId: input.threadId,
       username: input.username,
       text: input.text,
