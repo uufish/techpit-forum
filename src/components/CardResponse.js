@@ -27,7 +27,7 @@ const CardResponse = ({ response }) => {
           <Typography>
             <span>{response.username || 'null'}</span>
             <span>{'・'}</span>
-            <span>{toDateText(response.updatedAt.toDate())}</span>
+            <span>{toDateText(response.createdAt.toDate())}</span>
           </Typography>
         </div>
         <Typography className={classes.text}>{response.text}</Typography>

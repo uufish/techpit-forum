@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button/Button'
 import TextField from '@material-ui/core/TextField/TextField'
 import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
-import { createThread } from '../functions/createThread'
+import { createThread } from '../helpers/createThread'
 
 const useStyle = makeStyles({
   actions: { display: 'grid', justifyContent: 'flex-end' },

@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     gridRowGap: 16 + 'px',
     margin: 'auto',
     maxWidth: 960,
-    padding: 16,
+    padding: 16
   }
 })
 
