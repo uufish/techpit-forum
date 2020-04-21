@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AppHeader = () => {
+const Header = () => {
   return (
     <AppBar position={'sticky'} color={'default'}>
       <Toolbar>
@@ -16,4 +16,4 @@ const AppHeader = () => {
   )
 }
 
-export default AppHeader
+export default Header

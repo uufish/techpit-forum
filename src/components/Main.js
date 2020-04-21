@@ -13,10 +13,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => {
   }
 })
 
-const AppMain = ({ children }) => {
+const Main = ({ children }) => {
   const classes = useStyles()
 
   return <main className={classes.root}>{children}</main>
 }
 
-export default AppMain
+export default Main

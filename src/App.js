@@ -1,7 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { StylesProvider, ThemeProvider } from '@material-ui/styles'
 import React from 'react'
-import AppHeader from './components/AppHeader'
+import Header from './components/Header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import PageHome from './components/PageHome'
 import PageThread from './components/PageThread'
@@ -16,7 +16,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <AppHeader />
+          <Header />
           <Switch>
             <Route exact path={'/'}>
               <PageHome />

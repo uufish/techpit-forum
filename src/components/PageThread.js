@@ -4,7 +4,7 @@ import CardResponse from './CardResponse'
 import FormResponse from './FormResponse'
 import Progress from './Progress'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import AppMain from './AppMain'
+import Main from './Main'
 import { useParams } from 'react-router-dom'
 
 const PageThread = () => {
@@ -19,14 +19,14 @@ const PageThread = () => {
   const [responses = [], loading] = useCollectionData(query, { idField: 'id' })
 
   return (
-    <AppMain>
+    <Main>
       <h1>{'Thread'}</h1>
       {responses.map((response, index) => (
         <CardResponse key={response.id} index={index} response={response} />
       ))}
       {loading && <Progress />}
       <FormResponse threadId={threadId} />
-    </AppMain>
+    </Main>
   )
 }
 

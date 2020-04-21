@@ -1,11 +1,11 @@
 import React from 'react'
-import AppMain from './AppMain'
+import Main from './Main'
 
 const PageNotFound = () => {
   return (
-    <AppMain>
+    <Main>
       <h1>{'404'}</h1>
-    </AppMain>
+    </Main>
   )
 }
 
