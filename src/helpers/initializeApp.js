@@ -1,4 +1,4 @@
-import { firestore, initializeApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 import 'firebase/firestore'
 
 initializeApp({
@@ -7,13 +7,5 @@ initializeApp({
   databaseURL: 'https://uzxeszyjuzny.firebaseio.com',
   projectId: 'uzxeszyjuzny',
   storageBucket: 'uzxeszyjuzny.appspot.com',
-  messagingSenderId: '268923130736'
+  messagingSenderId: '268923130736',
 })
-
-firestore().settings({ timestampsInSnapshots: true })
-
-firestore()
-  .enablePersistence({ experimentalTabSynchronization: true })
-  .catch(err => {
-    console.error(err)
-  })

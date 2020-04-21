@@ -1,15 +1,35 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { createGenerateClassName, StylesProvider } from '@material-ui/styles'
+import { StylesProvider, ThemeProvider } from '@material-ui/styles'
 import React from 'react'
-import AppRouter from './components/AppRouter'
-
-const generateClassName = createGenerateClassName({ productionPrefix: 'c' })
+import AppHeader from './components/AppHeader'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import PageHome from './components/PageHome'
+import PageThread from './components/PageThread'
+import PageNotFound from './components/PageNotFound'
+import { createMuiTheme } from '@material-ui/core'
 
 const App = () => {
+  const theme = createMuiTheme()
+
   return (
-    <StylesProvider generateClassName={generateClassName}>
-      <CssBaseline />
-      <AppRouter />
+    <StylesProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <AppHeader />
+          <Switch>
+            <Route exact path={'/'}>
+              <PageHome />
+            </Route>
+            <Route exact path={'/threads/:threadId'}>
+              <PageThread />
+            </Route>
+            <Route path={'*'}>
+              <PageNotFound />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
     </StylesProvider>
   )
 }

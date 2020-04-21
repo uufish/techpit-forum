@@ -4,11 +4,6 @@ import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
 import { createThread } from '../helpers/createThread'
 
-const useStyle = makeStyles({
-  actions: { display: 'grid', justifyContent: 'flex-end' },
-  form: { display: 'grid', gridRowGap: 16 + 'px' }
-})
-
 const FormThread = () => {
   const [inProgress, setInProgress] = useState(false)
 
@@ -30,17 +25,17 @@ const FormThread = () => {
         setTitle('')
         setInProgress(false)
       })
-      .catch(err => {
+      .catch((err) => {
         setInProgress(false)
         console.error(err)
       })
   }
 
   return (
-    <form className={classes.form} onSubmit={event => event.preventDefault()}>
+    <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
       <TextField
         disabled={inProgress}
-        onChange={event => setTitle(event.target.value)}
+        onChange={(event) => setTitle(event.target.value)}
         placeholder={'New thread'}
         value={title}
         variant={'outlined'}
@@ -49,24 +44,24 @@ const FormThread = () => {
       {title && (
         <TextField
           disabled={inProgress}
-          onChange={event => setText(event.target.value)}
+          fullWidth
+          multiline
+          onChange={(event) => setText(event.target.value)}
           placeholder={'Content'}
           rows={2}
           rowsMax={8}
           value={text}
           variant={'outlined'}
-          fullWidth
-          multiline
         />
       )}
       {title && (
         <TextField
           disabled={inProgress}
-          onChange={event => setUsername(event.target.value)}
+          fullWidth
+          onChange={(event) => setUsername(event.target.value)}
           placeholder={'Username (optional)'}
           value={username}
           variant={'outlined'}
-          fullWidth
         />
       )}
       <div className={classes.actions}>
@@ -76,11 +71,18 @@ const FormThread = () => {
           onClick={onSubmit}
           variant={'contained'}
         >
-          create
+          {'Create'}
         </Button>
       </div>
     </form>
   )
 }
+
+const useStyle = makeStyles(({ spacing }) => {
+  return {
+    actions: { display: 'grid', justifyContent: 'flex-end' },
+    form: { display: 'grid', gridRowGap: spacing(2) },
+  }
+})
 
 export default FormThread

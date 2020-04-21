@@ -1,38 +1,32 @@
 import { firestore } from 'firebase/app'
-import React, { useEffect, useState } from 'react'
-import { collectionData } from 'rxfire/firestore'
+import React from 'react'
 import CardResponse from './CardResponse'
 import FormResponse from './FormResponse'
 import Progress from './Progress'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import AppMain from './AppMain'
+import { useParams } from 'react-router-dom'
 
-const PageThread = ({ match }) => {
-  const [isLoading, setIsLoading] = useState(true)
-
-  const [responses, setResponses] = useState([])
+const PageThread = () => {
+  const { threadId } = useParams()
 
   const query = firestore()
     .collection('threads')
-    .doc(match.params.threadId)
+    .doc(threadId)
     .collection('responses')
     .orderBy('createdAt', 'asc')
 
-  useEffect(() => {
-    const subscription = collectionData(query, 'id').subscribe(data => {
-      setIsLoading(false)
-      setResponses(data)
-    })
-    return () => subscription.unsubscribe()
-  }, [])
+  const [responses = [], loading] = useCollectionData(query, { idField: 'id' })
 
   return (
-    <>
-      <h1>Thread</h1>
-      {responses.map(response => (
-        <CardResponse key={response.id} response={response} />
+    <AppMain>
+      <h1>{'Thread'}</h1>
+      {responses.map((response, index) => (
+        <CardResponse key={response.id} index={index} response={response} />
       ))}
-      {isLoading && <Progress />}
-      <FormResponse threadId={match.params.threadId} />
-    </>
+      {loading && <Progress />}
+      <FormResponse threadId={threadId} />
+    </AppMain>
   )
 }
 

@@ -9,7 +9,7 @@ const AppHeader = () => {
     <AppBar position={'sticky'} color={'default'}>
       <Toolbar>
         <Typography color={'inherit'} component={Link} to={'/'} variant={'h5'}>
-          Forum
+          {'Forum'}
         </Typography>
       </Toolbar>
     </AppBar>

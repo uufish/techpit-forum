@@ -4,11 +4,6 @@ import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
 import { createResponse } from '../helpers/createResponse'
 
-const useStyle = makeStyles({
-  actions: { display: 'grid', justifyContent: 'flex-end' },
-  form: { display: 'grid', gridRowGap: 16 + 'px' }
-})
-
 const FormResponse = ({ threadId }) => {
   const [inProgress, setInProgress] = useState(false)
 
@@ -27,33 +22,33 @@ const FormResponse = ({ threadId }) => {
         setUsername('')
         setInProgress(false)
       })
-      .catch(err => {
+      .catch((err) => {
         setInProgress(false)
         console.error(err)
       })
   }
 
   return (
-    <form className={classes.form} onSubmit={event => event.preventDefault()}>
+    <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
       <TextField
         disabled={inProgress}
-        onChange={event => setText(event.target.value)}
+        fullWidth
+        multiline
+        onChange={(event) => setText(event.target.value)}
         placeholder={'New response'}
         rows={2}
         rowsMax={8}
         value={text}
         variant={'outlined'}
-        fullWidth
-        multiline
       />
       {text && (
         <TextField
           disabled={inProgress}
-          onChange={event => setUsername(event.target.value)}
+          fullWidth
+          onChange={(event) => setUsername(event.target.value)}
           placeholder={'Username (Optional)'}
           value={username}
           variant={'outlined'}
-          fullWidth
         />
       )}
       <div className={classes.actions}>
@@ -63,11 +58,18 @@ const FormResponse = ({ threadId }) => {
           onClick={onSubmit}
           variant={'contained'}
         >
-          create
+          {'Create'}
         </Button>
       </div>
     </form>
   )
 }
+
+const useStyle = makeStyles(({ spacing }) => {
+  return {
+    actions: { display: 'grid', justifyContent: 'flex-end' },
+    form: { display: 'grid', gridRowGap: spacing(2) },
+  }
+})
 
 export default FormResponse

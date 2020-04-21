@@ -4,12 +4,6 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { toDateText } from '../helpers/toDateText'
-
-const useStyles = makeStyles({
-  content: { display: 'grid', gridRowGap: 8 + 'px' },
-  title: { display: 'grid', gridTemplateColumns: '1fr auto' }
-})
 
 const CardThread = ({ thread }) => {
   const classes = useStyles()
@@ -18,15 +12,20 @@ const CardThread = ({ thread }) => {
     <Card>
       <Link to={`/threads/${thread.id}`}>
         <CardContent className={classes.content}>
-          <Typography className={classes.title}>
-            <span>{thread.title}</span>
-            <span>{String(thread.responseCount)}</span>
+          <Typography variant={'h6'}>
+            {`${thread.title} (${thread.responseCount})`}
           </Typography>
-          <Typography>{toDateText(thread.updatedAt.toDate())}</Typography>
+          <Typography variant={'caption'}>
+            {thread.updatedAt.toDate().toLocaleString()}
+          </Typography>
         </CardContent>
       </Link>
     </Card>
   )
 }
+
+const useStyles = makeStyles(({ spacing }) => {
+  return { content: { display: 'grid', gridRowGap: spacing(1) } }
+})
 
 export default CardThread

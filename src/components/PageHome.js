@@ -1,36 +1,25 @@
 import { firestore } from 'firebase/app'
-import React, { useEffect, useState } from 'react'
-import { collectionData } from 'rxfire/firestore'
+import React from 'react'
 import CardThread from './CardThread'
 import FormThread from './FormThread'
 import Progress from './Progress'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import AppMain from './AppMain'
 
 const PageHome = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const query = firestore().collection('threads').orderBy('updatedAt', 'desc')
 
-  const [threads, setThreads] = useState([])
-
-  const query = firestore()
-    .collection('threads')
-    .orderBy('updatedAt', 'desc')
-
-  useEffect(() => {
-    const subscription = collectionData(query, 'id').subscribe(data => {
-      setIsLoading(false)
-      setThreads(data)
-    })
-    return () => subscription.unsubscribe()
-  }, [])
+  const [threads = [], loading] = useCollectionData(query, { idField: 'id' })
 
   return (
-    <>
-      <h1>Home</h1>
+    <AppMain>
+      <h1>{'Home'}</h1>
       <FormThread />
-      {threads.map(thread => (
+      {threads.map((thread) => (
         <CardThread key={thread.id} thread={thread} />
       ))}
-      {isLoading && <Progress />}
-    </>
+      {loading && <Progress />}
+    </AppMain>
   )
 }
 
