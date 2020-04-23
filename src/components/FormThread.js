@@ -1,5 +1,4 @@
-import Button from '@material-ui/core/Button/Button'
-import TextField from '@material-ui/core/TextField/TextField'
+import { Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
 import { createThread } from '../helpers/createThread'

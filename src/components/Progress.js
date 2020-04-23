@@ -1,4 +1,4 @@
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 

@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 
+const Main = ({ children }) => {
+  const classes = useStyles()
+
+  return <main className={classes.root}>{children}</main>
+}
+
 const useStyles = makeStyles(({ breakpoints, spacing }) => {
   return {
     root: {
@@ -12,11 +18,5 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => {
     },
   }
 })
-
-const Main = ({ children }) => {
-  const classes = useStyles()
-
-  return <main className={classes.root}>{children}</main>
-}
 
 export default Main

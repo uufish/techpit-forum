@@ -1,11 +1,11 @@
 import { firestore } from 'firebase/app'
 import React from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useParams } from 'react-router-dom'
 import CardResponse from './CardResponse'
 import FormResponse from './FormResponse'
-import Progress from './Progress'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import Main from './Main'
-import { useParams } from 'react-router-dom'
+import Progress from './Progress'
 
 const PageThread = () => {
   const { threadId } = useParams()

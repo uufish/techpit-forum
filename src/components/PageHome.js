@@ -1,10 +1,10 @@
 import { firestore } from 'firebase/app'
 import React from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import CardThread from './CardThread'
 import FormThread from './FormThread'
-import Progress from './Progress'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import Main from './Main'
+import Progress from './Progress'
 
 const PageHome = () => {
   const query = firestore().collection('threads').orderBy('updatedAt', 'desc')
