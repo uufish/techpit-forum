@@ -1,36 +1,27 @@
 import { Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
-import { createResponse } from '../helpers/createResponse'
+import { useCreateResponse } from '../helpers/useCreateResponse'
 
 const FormResponse = ({ threadId }) => {
-  const [inProgress, setInProgress] = useState(false)
+  const classes = useStyle()
 
   const [text, setText] = useState('')
 
   const [username, setUsername] = useState('')
 
-  const classes = useStyle()
+  const [createResponse, loading] = useCreateResponse()
 
-  const onSubmit = () => {
-    if (inProgress || !text) return
-    setInProgress(true)
+  const onClick = () => {
     createResponse({ text, threadId, username })
-      .then(() => {
-        setText('')
-        setUsername('')
-        setInProgress(false)
-      })
-      .catch((err) => {
-        setInProgress(false)
-        console.error(err)
-      })
+    setText('')
+    setUsername('')
   }
 
   return (
     <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
       <TextField
-        disabled={inProgress}
+        disabled={loading}
         fullWidth
         multiline
         onChange={(event) => setText(event.target.value)}
@@ -42,7 +33,7 @@ const FormResponse = ({ threadId }) => {
       />
       {text && (
         <TextField
-          disabled={inProgress}
+          disabled={loading}
           fullWidth
           onChange={(event) => setUsername(event.target.value)}
           placeholder={'Username (Optional)'}
@@ -53,8 +44,8 @@ const FormResponse = ({ threadId }) => {
       <div className={classes.actions}>
         <Button
           color={'primary'}
-          disabled={inProgress || !text}
-          onClick={onSubmit}
+          disabled={loading || !text}
+          onClick={onClick}
           variant={'contained'}
         >
           {'Create'}

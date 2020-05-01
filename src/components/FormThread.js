@@ -1,10 +1,10 @@
 import { Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
-import { createThread } from '../helpers/createThread'
+import { useCreateThread } from '../helpers/useCreateThread'
 
 const FormThread = () => {
-  const [inProgress, setInProgress] = useState(false)
+  const classes = useStyle()
 
   const [text, setText] = useState('')
 
@@ -12,37 +12,28 @@ const FormThread = () => {
 
   const [username, setUsername] = useState('')
 
-  const classes = useStyle()
+  const [createThread, loading] = useCreateThread()
 
-  const onSubmit = () => {
-    if (inProgress || !text || !title) return
-    setInProgress(true)
-    createThread({ username, text, title })
-      .then(() => {
-        setUsername('')
-        setText('')
-        setTitle('')
-        setInProgress(false)
-      })
-      .catch((err) => {
-        setInProgress(false)
-        console.error(err)
-      })
+  const onClick = () => {
+    createThread({ text, title, username })
+    setText('')
+    setTitle('')
+    setUsername('')
   }
 
   return (
     <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
       <TextField
-        disabled={inProgress}
+        disabled={loading}
+        fullWidth
         onChange={(event) => setTitle(event.target.value)}
         placeholder={'New thread'}
         value={title}
         variant={'outlined'}
-        fullWidth
       />
       {title && (
         <TextField
-          disabled={inProgress}
+          disabled={loading}
           fullWidth
           multiline
           onChange={(event) => setText(event.target.value)}
@@ -55,7 +46,7 @@ const FormThread = () => {
       )}
       {title && (
         <TextField
-          disabled={inProgress}
+          disabled={loading}
           fullWidth
           onChange={(event) => setUsername(event.target.value)}
           placeholder={'Username (optional)'}
@@ -66,8 +57,8 @@ const FormThread = () => {
       <div className={classes.actions}>
         <Button
           color={'primary'}
-          disabled={inProgress || !title || !text}
-          onClick={onSubmit}
+          disabled={loading || !title || !text}
+          onClick={onClick}
           variant={'contained'}
         >
           {'Create'}
