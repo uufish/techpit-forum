@@ -1,20 +1,20 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import { useState } from 'react'
 
 export const useCreateResponse = () => {
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const createResponse = async ({ text, threadId, username }) => {
-    if (loading) return
+    if (isLoading) return
 
     setLoading(true)
 
-    const now = firestore.Timestamp.now()
+    const now = firebase.firestore.Timestamp.now()
 
-    const threadRef = firestore().collection('threads').doc(threadId)
+    const threadRef = firebase.firestore().collection('threads').doc(threadId)
 
     await threadRef.update({
-      responseCount: firestore.FieldValue.increment(1),
+      responseCount: firebase.firestore.FieldValue.increment(1),
       updatedAt: now,
     })
 
@@ -31,5 +31,5 @@ export const useCreateResponse = () => {
     setLoading(false)
   }
 
-  return [createResponse, loading]
+  return [createResponse, isLoading]
 }

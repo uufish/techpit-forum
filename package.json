@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.9.11",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/styles": "^4.9.10",
-    "firebase": "^7.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-firebase-hooks": "^2.1.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
-    "rxfire": "^3.10.1",
-    "rxjs": "^6.5.5"
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "firebase": "^8.6.5",
+    "framer-motion": "^4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-firebase-hooks": "^3.0.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,16 +25,21 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "firebase-tools": "^7.15.1",
-    "prettier": "^2.0.5"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

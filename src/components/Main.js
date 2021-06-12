@@ -1,22 +1,12 @@
-import { makeStyles } from '@material-ui/styles'
+import { Stack } from '@chakra-ui/react'
 import React from 'react'
 
 const Main = ({ children }) => {
-  const classes = useStyles()
-
-  return <main className={classes.root}>{children}</main>
+  return (
+    <Stack spacing={8} pt={8} pb={4} px={4} mx={'auto'} maxW={'xl'}>
+      {children}
+    </Stack>
+  )
 }
-
-const useStyles = makeStyles(({ breakpoints, spacing }) => {
-  return {
-    root: {
-      display: 'grid',
-      gridRowGap: spacing(2),
-      margin: 'auto',
-      maxWidth: breakpoints.values.md,
-      padding: spacing(2),
-    },
-  }
-})
 
 export default Main

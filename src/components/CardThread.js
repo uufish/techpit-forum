@@ -1,29 +1,21 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Stack, HStack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 const CardThread = ({ thread }) => {
-  const classes = useStyles()
-
   return (
-    <Card>
-      <Link to={`/threads/${thread.id}`}>
-        <CardContent className={classes.content}>
-          <Typography variant={'h6'}>
-            {`${thread.title} (${thread.responseCount})`}
-          </Typography>
-          <Typography variant={'caption'}>
-            {thread.updatedAt.toDate().toLocaleString()}
-          </Typography>
-        </CardContent>
-      </Link>
-    </Card>
+    <Link to={`/threads/${thread.id}`}>
+      <Stack spacing={1} shadow={'md'} p={4} rounded={'md'}>
+        <HStack justify={'space-between'}>
+          <Text>{thread.title}</Text>
+          <Text>{thread.responseCount}</Text>
+        </HStack>
+        <Text fontSize={'sm'}>
+          {thread.updatedAt.toDate().toLocaleString()}
+        </Text>
+      </Stack>
+    </Link>
   )
 }
-
-const useStyles = makeStyles(({ spacing }) => {
-  return { content: { display: 'grid', gridRowGap: spacing(1) } }
-})
 
 export default CardThread

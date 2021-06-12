@@ -1,10 +1,11 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 import Main from './Main'
 
 const PageNotFound = () => {
   return (
     <Main>
-      <h1>{'404'}</h1>
+      <Heading>{'404'}</Heading>
     </Main>
   )
 }

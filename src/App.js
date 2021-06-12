@@ -1,5 +1,4 @@
-import { createMuiTheme, CssBaseline } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/styles'
+import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
@@ -8,11 +7,8 @@ import PageNotFound from './components/PageNotFound'
 import PageThread from './components/PageThread'
 
 const App = () => {
-  const theme = createMuiTheme()
-
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ChakraProvider>
       <BrowserRouter>
         <Header />
         <Switch>
@@ -27,7 +23,7 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-    </ThemeProvider>
+    </ChakraProvider>
   )
 }
 

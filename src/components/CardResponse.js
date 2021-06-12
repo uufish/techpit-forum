@@ -1,29 +1,20 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { HStack, Stack, Text } from '@chakra-ui/layout'
 import React from 'react'
 
-const CardResponse = ({ index, response }) => {
-  const classes = useStyles()
-
-  const dateText = response.createdAt.toDate().toLocaleString()
-
+const CardResponse = ({ response, index }) => {
   return (
-    <Card>
-      <CardContent className={classes.root}>
-        <Typography>
-          {`${index} [${response.username || 'Unknown'}] ${dateText}`}
-        </Typography>
-        <Typography className={classes.text}>{response.text}</Typography>
-      </CardContent>
-    </Card>
+    <Stack spacing={1} shadow={'md'} p={4} rounded={'md'}>
+      <HStack justify={'space-between'}>
+        <HStack>
+          <Text>{index + 1}</Text>
+          <Text>{'・'}</Text>
+          <Text>{response.username || '不明'}</Text>
+        </HStack>
+        <Text>{response.createdAt.toDate().toLocaleString()}</Text>
+      </HStack>
+      <Text whiteSpace={'pre-wrap'}>{response.text}</Text>
+    </Stack>
   )
 }
-
-const useStyles = makeStyles(({ spacing }) => {
-  return {
-    root: { display: 'grid', gridRowGap: spacing(1) },
-    text: { whiteSpace: 'pre-wrap', wordBreak: 'break-word' },
-  }
-})
 
 export default CardResponse

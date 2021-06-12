@@ -1,16 +1,17 @@
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app'
 import React from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useParams } from 'react-router-dom'
 import CardResponse from './CardResponse'
 import FormResponse from './FormResponse'
 import Main from './Main'
-import Progress from './Progress'
+import { Heading, HStack, Spinner } from '@chakra-ui/react'
 
 const PageThread = () => {
   const { threadId } = useParams()
 
-  const query = firestore()
+  const query = firebase
+    .firestore()
     .collection('threads')
     .doc(threadId)
     .collection('responses')
@@ -20,11 +21,15 @@ const PageThread = () => {
 
   return (
     <Main>
-      <h1>{'Thread'}</h1>
+      <Heading>{'スレッド'}</Heading>
       {responses.map((response, index) => (
         <CardResponse key={response.id} index={index} response={response} />
       ))}
-      {loading && <Progress />}
+      {loading && (
+        <HStack justify={'center'}>
+          <Spinner size={'xl'} />
+        </HStack>
+      )}
       <FormResponse threadId={threadId} />
     </Main>
   )

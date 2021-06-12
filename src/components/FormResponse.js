@@ -1,65 +1,59 @@
-import { Button, TextField } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Input, Stack, Button, Textarea, HStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useCreateResponse } from '../helpers/useCreateResponse'
+import { useCreateResponse } from '../hooks/useCreateResponse'
 
 const FormResponse = ({ threadId }) => {
-  const classes = useStyle()
-
   const [text, setText] = useState('')
 
   const [username, setUsername] = useState('')
 
-  const [createResponse, loading] = useCreateResponse()
+  const [createResponse, isLoading] = useCreateResponse()
 
-  const onClick = () => {
+  const onCreateResponse = () => {
     createResponse({ text, threadId, username })
     setText('')
     setUsername('')
   }
 
   return (
-    <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
-      <TextField
-        disabled={loading}
-        fullWidth
-        multiline
+    <Stack
+      as={'form'}
+      onSubmit={(event) => {
+        event.preventDefault()
+        onCreateResponse()
+      }}
+      p={4}
+      rounded={'md'}
+      shadow={'md'}
+      spacing={4}
+    >
+      <Textarea
+        isDisabled={isLoading}
         onChange={(event) => setText(event.target.value)}
-        placeholder={'New response'}
-        rows={2}
-        rowsMax={8}
+        placeholder={'コメント'}
         value={text}
-        variant={'outlined'}
       />
       {text && (
-        <TextField
-          disabled={loading}
-          fullWidth
+        <Input
+          isDisabled={isLoading}
           onChange={(event) => setUsername(event.target.value)}
-          placeholder={'Username (Optional)'}
+          placeholder={'ユーザー名（任意）'}
           value={username}
-          variant={'outlined'}
         />
       )}
-      <div className={classes.actions}>
+      <HStack justify={'flex-end'}>
         <Button
           color={'primary'}
-          disabled={loading || !text}
-          onClick={onClick}
-          variant={'contained'}
+          isDisabled={!text}
+          isLoading={isLoading}
+          loadingText={'送信中'}
+          type={'submit'}
         >
-          {'Create'}
+          {'送信する'}
         </Button>
-      </div>
-    </form>
+      </HStack>
+    </Stack>
   )
 }
-
-const useStyle = makeStyles(({ spacing }) => {
-  return {
-    actions: { display: 'grid', justifyContent: 'flex-end' },
-    form: { display: 'grid', gridRowGap: spacing(2) },
-  }
-})
 
 export default FormResponse

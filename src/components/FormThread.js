@@ -1,20 +1,17 @@
-import { Button, TextField } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Textarea, Button, HStack, Stack, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useCreateThread } from '../helpers/useCreateThread'
+import { useCreateThread } from '../hooks/useCreateThread'
 
 const FormThread = () => {
-  const classes = useStyle()
-
   const [text, setText] = useState('')
 
   const [title, setTitle] = useState('')
 
   const [username, setUsername] = useState('')
 
-  const [createThread, loading] = useCreateThread()
+  const [createThread, isLoading] = useCreateThread()
 
-  const onClick = () => {
+  const onCreateThread = () => {
     createThread({ text, title, username })
     setText('')
     setTitle('')
@@ -22,57 +19,52 @@ const FormThread = () => {
   }
 
   return (
-    <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
-      <TextField
-        disabled={loading}
-        fullWidth
+    <Stack
+      as={'form'}
+      onSubmit={(event) => {
+        event.preventDefault()
+        onCreateThread()
+      }}
+      p={4}
+      rounded={'md'}
+      shadow={'md'}
+      spacing={4}
+    >
+      <Input
+        isDisabled={isLoading}
         onChange={(event) => setTitle(event.target.value)}
-        placeholder={'New thread'}
+        placeholder={'スレッドのタイトル'}
         value={title}
-        variant={'outlined'}
       />
       {title && (
-        <TextField
-          disabled={loading}
-          fullWidth
-          multiline
+        <Textarea
+          isDisabled={isLoading}
           onChange={(event) => setText(event.target.value)}
-          placeholder={'Content'}
-          rows={2}
-          rowsMax={8}
+          placeholder={'内容'}
           value={text}
-          variant={'outlined'}
         />
       )}
       {title && (
-        <TextField
-          disabled={loading}
-          fullWidth
+        <Input
+          isDisabled={isLoading}
           onChange={(event) => setUsername(event.target.value)}
-          placeholder={'Username (optional)'}
+          placeholder={'ユーザー名（任意）'}
           value={username}
-          variant={'outlined'}
         />
       )}
-      <div className={classes.actions}>
+      <HStack justify={'flex-end'}>
         <Button
           color={'primary'}
-          disabled={loading || !title || !text}
-          onClick={onClick}
-          variant={'contained'}
+          isDisabled={!title || !text}
+          isLoading={isLoading}
+          loadingText={'作成中'}
+          type={'submit'}
         >
-          {'Create'}
+          {'送信する'}
         </Button>
-      </div>
-    </form>
+      </HStack>
+    </Stack>
   )
 }
-
-const useStyle = makeStyles(({ spacing }) => {
-  return {
-    actions: { display: 'grid', justifyContent: 'flex-end' },
-    form: { display: 'grid', gridRowGap: spacing(2) },
-  }
-})
 
 export default FormThread

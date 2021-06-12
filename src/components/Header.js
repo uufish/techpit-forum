@@ -1,16 +1,21 @@
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { Box, Heading } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <AppBar color={'default'} position={'sticky'}>
-      <Toolbar>
-        <Typography color={'inherit'} component={Link} to={'/'} variant={'h5'}>
-          {'Forum'}
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <Box
+      bg={'white'}
+      boxShadow={'md'}
+      p={4}
+      position={'sticky'}
+      top={0}
+      zIndex={1}
+    >
+      <Heading as={Link} to={'/'} fontSize={'lg'}>
+        {'フォーラム'}
+      </Heading>
+    </Box>
   )
 }
 
