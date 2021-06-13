@@ -4,7 +4,7 @@ import { useState } from 'react'
 export const useCreateThread = () => {
   const [isLoading, setLoading] = useState(false)
 
-  const createResponse = async ({ text, title, username }) => {
+  const createThread = async ({ text, title, username }) => {
     if (isLoading) return
 
     setLoading(true)
@@ -33,5 +33,5 @@ export const useCreateThread = () => {
     setLoading(false)
   }
 
-  return [createResponse, isLoading]
+  return [createThread, isLoading]
 }

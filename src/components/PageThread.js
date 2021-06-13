@@ -17,7 +17,9 @@ const PageThread = () => {
     .collection('responses')
     .orderBy('createdAt', 'asc')
 
-  const [responses = [], loading] = useCollectionData(query, { idField: 'id' })
+  const [responses = [], isLoading] = useCollectionData(query, {
+    idField: 'id',
+  })
 
   return (
     <Main>
@@ -25,7 +27,7 @@ const PageThread = () => {
       {responses.map((response, index) => (
         <CardResponse key={response.id} index={index} response={response} />
       ))}
-      {loading && (
+      {isLoading && (
         <HStack justify={'center'}>
           <Spinner size={'xl'} />
         </HStack>

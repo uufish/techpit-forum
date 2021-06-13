@@ -13,7 +13,7 @@ const PageHome = () => {
     .orderBy('updatedAt', 'desc')
     .limit(20)
 
-  const [threads = [], loading] = useCollectionData(query, { idField: 'id' })
+  const [threads = [], isLoading] = useCollectionData(query, { idField: 'id' })
 
   return (
     <Main>
@@ -22,7 +22,7 @@ const PageHome = () => {
       {threads.map((thread) => (
         <CardThread key={thread.id} thread={thread} />
       ))}
-      {loading && (
+      {isLoading && (
         <HStack justify={'center'}>
           <Spinner size={'xl'} />
         </HStack>
